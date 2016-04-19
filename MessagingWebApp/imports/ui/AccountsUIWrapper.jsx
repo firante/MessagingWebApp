@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Template} from 'meteor/templating';
 import {Blaze} from 'meteor/blaze';
@@ -13,6 +13,10 @@ export default class AccountUIWrapper extends Component {
 	}
 
 	render() {
-		return <span ref='container' />
+		return (
+			<div className='text-right'>
+				<span ref='container' />
+			</div>
+		)
 	}
 }

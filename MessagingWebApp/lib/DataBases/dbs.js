@@ -1,0 +1,1 @@
+regions = new Mongo.Collection('regions');
