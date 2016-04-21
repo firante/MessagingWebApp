@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 
-import support from './pull/pullRegions.js'
+import Support from './pull/pullRegions.js'
 
 Meteor.startup(() => {
-	console.log(typeof new support);
+	new Support().pullRegions();
 
+	console.log(regionsCount.thisCounter)
 
 	Meteor.publish('regions', () => {
 		return regions.find();
