@@ -1,8 +1,18 @@
 import React, {Component} from 'react';
+import { render } from 'react-dom';
+import { Meteor } from 'meteor/meteor';
+
+import RegionElement from './RegionElement.jsx'
 
 export default class RegionSelector extends Component {
-	handleClick() {
-		console.log(this);
+	renderRegions() {
+		Meteor.subscribe('regions');
+		let regList = regions.find().fetch();
+		var list = regList.map(function(value, index) {
+			console.log(value);
+			return <RegionElement key={index} regions={value} />
+		}); 
+		return list;
 	}
 
 	render () {
@@ -14,24 +24,7 @@ export default class RegionSelector extends Component {
 				</button>
 
 				<ul className='dropdown-menu'>
-					<li> 
-						<a 
-							className='btn'
-							onClick = {this.handleClick.bind(this)}> Lviv 
-						</a>
-					</li>
-					<li> 
-						<a 
-							className='btn'
-							onClick = {this.handleClick.bind(this)}> Brody 
-						</a>
-					</li>
-					<li> 
-						<a 
-							className='btn'
-							onClick = {this.handleClick.bind(this)}> Pidkamin 
-						</a>
-					</li>
+					{this.renderRegions()}
 				</ul>
 			</div>
 		);
