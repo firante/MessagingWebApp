@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import { render } from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-
 
 import RegionElement from './RegionElement.jsx';
 
