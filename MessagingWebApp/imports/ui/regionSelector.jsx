@@ -2,17 +2,15 @@ import React, {Component} from 'react';
 import { render } from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-import RegionElement from './RegionElement.jsx'
+
+import RegionElement from './RegionElement.jsx';
 
 export default class RegionSelector extends Component {
+
 	renderRegions() {
-		Meteor.subscribe('regions');
-		let regList = regions.find().fetch();
-		var list = regList.map(function(value, index) {
-			console.log(value);
-			return <RegionElement key={index} regions={value} />
-		}); 
-		return list;
+		return this.props.regions.map(value =>
+			<RegionElement key={value._id} regions={value} />
+		);
 	}
 
 	render () {

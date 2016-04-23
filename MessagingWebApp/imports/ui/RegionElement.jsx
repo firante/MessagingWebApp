@@ -5,12 +5,16 @@ import {Blaze} from 'meteor/blaze';
 import { render } from 'react-dom';
 
 export default class RegionElement extends Component {
+	onClick() {
+			this.props.onClick(this.props.regions.regionName);
+	}
+
 	render() {
 		return (
-			<li> 
-				<a 
-					id={'region_'+this.props.regions._id}
-					className='btn'> {this.props.regions.regionName} 
+			<li>
+				<a
+					onClick={this.onClick}
+					className='btn'> {this.props.regions.regionName}
 				</a>
 			</li>
 		);
@@ -18,6 +22,6 @@ export default class RegionElement extends Component {
 }
 
 RegionElement.propTypes = {
-	regions: PropTypes.object.isRequired
+	regions: PropTypes.object.isRequired,
+	onClick: PropTypes.func.isRequired
 };
-

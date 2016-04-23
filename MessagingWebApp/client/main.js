@@ -8,17 +8,6 @@ import RegionSelector from '../imports/ui/regionSelector.jsx';
 import RegionElement from '../imports/ui/RegionElement.jsx';
 
 Meteor.startup(() => {
-
-    Meteor.subscribe('regions');
-	render (<App />, document.getElementById('container'));
-
-	var interval = setInterval(function() {
-		if(Meteor.user()) {
-			render(<RegionSelector />, document.getElementById('regions'));
-			clearInterval(interval);
-		}
-	}, 100)
-
+  Meteor.subscribe('regions');
+  render (<App />, document.getElementById('container'));
 });
-
-

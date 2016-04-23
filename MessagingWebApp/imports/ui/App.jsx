@@ -1,22 +1,35 @@
 import React, {Component, PropTypes} from 'react';
 import AccountUIWrapper from './AccountsUIWrapper.jsx';
-import { render } from 'react-dom';
-import { Meteor } from 'meteor/meteor';
+import {createContainer} from 'meteor/react-meteor-data';
+import { getRegions } from '../api/events.jsx';
+import RegionSelector from './regionSelector.jsx';
 
-import '../startup/accounts-config.js';
-
-export default class App extends Component {
+class App extends Component {
 
 	render() {
+		let regionSelector;
+
+		if(this.props.user) {
+			regionSelector = <RegionSelector regions={this.props.regions}/>;
+		}
+
 		return(
 			<div className='col-xs-12 col-sm-12 colmd-12 col-lg-12'>
 				<div className='col-xs-12 col-sm-12 colmd-12 col-lg-12'>
 					<AccountUIWrapper />
 				</div>
 
-				<div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right' id='regions'>
+				<div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right'>
+					{regionSelector}
 				</div>
 			</div>
 		)
 	}
 }
+
+export default createContainer ( () => {
+	return {
+		regions: getRegions(),
+		user: Meteor.user()
+	};
+}, App);
