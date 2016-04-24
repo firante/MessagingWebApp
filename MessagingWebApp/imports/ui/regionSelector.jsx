@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import RegionElement from './RegionElement.jsx';
 
@@ -6,7 +6,7 @@ export default class RegionSelector extends Component {
 
 	renderRegions() {
 		return this.props.regions.map(value =>
-			<RegionElement key={value._id} regions={value} />
+			<RegionElement key={value._id} regions={value} onClick={this.props.onClick}/>
 		);
 	}
 
@@ -25,3 +25,7 @@ export default class RegionSelector extends Component {
 		);
 	}
 }
+
+RegionElement.propTypes = {
+	onClick: PropTypes.func.isRequired
+};

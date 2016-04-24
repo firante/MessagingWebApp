@@ -2,14 +2,14 @@ import React, {Component, PropTypes} from 'react';
 
 export default class RegionElement extends Component {
 	onClick() {
-			this.props.onClick(this.props.regions.regionName);
+		this.props.onClick(this.props.regions.regionName);
 	}
 
 	render() {
 		return (
 			<li>
 				<a
-					onClick={this.onClick}
+					onClick={this.onClick.bind(this)}
 					className='btn'> {this.props.regions.regionName}
 				</a>
 			</li>
