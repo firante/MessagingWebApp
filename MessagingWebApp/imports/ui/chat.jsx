@@ -1,13 +1,19 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
-export default class Chat {
+import UsersList from './usersList.jsx';
+
+export default class Chat extends Component{
+  renderUsers() {
+    return this.props.users.map( value => <UsersList key={value._id} user={value.username} /> );
+  }
+
   render() {
     return (
       <div className='col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1
         col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1'>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
           <ul className='list-group'>
-
+            {this.renderUsers()}
           </ul>
         </div>
         <div className='col-xs-7 col-sm-7 col-md-7 col-lg-7'></div>
@@ -16,4 +22,8 @@ export default class Chat {
       </div>
     );
   }
+}
+
+Chat.propTypes = {
+  users: PropTypes.array.isRequired
 }

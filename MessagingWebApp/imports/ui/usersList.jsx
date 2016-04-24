@@ -6,13 +6,14 @@ export default class UsersList extends Component {
 	// }
 
 	render() {
+		console.log(this.props.user);
 		return (
-			<li className='list-group-item'>  </li>
+			<li className='list-group-item'> {this.props.user} </li>
 		);
 	}
 }
 
-RegionElement.propTypes = {
-	regions: PropTypes.object.isRequired,
-	onClick: PropTypes.func.isRequired
+UsersList.propTypes = {
+	user: PropTypes.string.isRequired
+//	onClick: PropTypes.func.isRequired
 };
