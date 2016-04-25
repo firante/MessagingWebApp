@@ -11,6 +11,9 @@ Meteor.startup(() => {
 		return regions.find();
 	});
 
+	Meteor.publish('messages', () => {
+		return messages.find();
+	});
 
 
 	new Support().pullRegions();

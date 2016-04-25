@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 export default class RegionElement extends Component {
 	onClick() {
 		// region button clicked event
-		this.props.onClick(this.props.regions.regionName, Meteor.user().username);
+		this.props.onClick(this.props.regions._id, this.props.regions.regionName, Meteor.user().username);
 		// render chat body component
 		Session.set('regionName', this.props.regions.regionName);
 	}

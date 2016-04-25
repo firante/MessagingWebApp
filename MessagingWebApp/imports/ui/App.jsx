@@ -3,17 +3,20 @@ import AccountUIWrapper from './AccountsUIWrapper.jsx';
 import {createContainer} from 'meteor/react-meteor-data';
 
 
-import { getRegions, addOnlineUser, removeOnlineUser, openRegion, getUsersByRegion } from '../api/events.jsx';
+import { getRegions, addOnlineUser, removeOnlineUser, openRegion,
+  getUsersByRegion, getMessagesByRegion } from '../api/events.jsx';
 import RegionSelector from './regionSelector.jsx';
 import Chat from './chat.jsx';
-import ActiveUser from '../../lib/mylibs/activeUser'
 
 class App extends Component {
 
-	constructor() {
-		super();
-		this.activeUser = new ActiveUser();
-	}
+  renderChat() {
+    if(this.props.users && this.props.messages) {
+      return <Chat users={this.props.users} messagesObj={this.props.messages} />;
+    } else {
+        return null;
+    }
+  }
 
 	render() {
 		let regionSelector;
@@ -22,13 +25,13 @@ class App extends Component {
 			regionSelector = <RegionSelector regions={this.props.regions} onClick={openRegion}/>;
 			setTimeout(()=>{
 				if(onlineUsers.find({_id: this.props.user._id}).count() < 1) {
-					console.log(this.props.user._id)
 					this.activeUser = this.props.user._id;
 					addOnlineUser(this.props.user);
 				}
+        Session.set('userId', this.props.user._id);
 			}, 500);
 		} else {
-		//	removeOnlineUser(this.activeUser);
+		  removeOnlineUser();
 		}
 
 		return(
@@ -42,7 +45,7 @@ class App extends Component {
 				</div>
 
 				<div className='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='chatBody'>
-					<Chat users={this.props.users} />
+					{this.renderChat()}
 				</div>
 			</div>
 		)
@@ -53,6 +56,7 @@ export default createContainer ( () => {
 	return {
 		regions: getRegions(),
 		user: Meteor.user(),
-		users: getUsersByRegion(Session.get('regionName'))
+		users: getUsersByRegion(Session.get('regionName')),
+    messages: getMessagesByRegion(Session.get('regionName'))
 	};
 }, App);

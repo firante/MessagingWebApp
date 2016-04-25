@@ -1,10 +1,16 @@
 import React, {Component, PropTypes} from 'react';
 
 import UsersList from './usersList.jsx';
+import Messages from './Messages.jsx';
 
 export default class Chat extends Component{
   renderUsers() {
     return this.props.users.map( value => <UsersList key={value._id} user={value.username} /> );
+  }
+
+  renderMessages() {
+    console.log(this.props.messagesObj);
+    return <Messages messagesInReg={this.props.messagesObj} />
   }
 
   render() {
@@ -16,7 +22,9 @@ export default class Chat extends Component{
             {this.renderUsers()}
           </ul>
         </div>
-        <div className='col-xs-7 col-sm-7 col-md-7 col-lg-7'></div>
+        <div className='col-xs-7 col-sm-7 col-md-7 col-lg-7'>
+          {this.renderMessages()}
+        </div>
         <div className='col-xs-8 col-sm-8 col-md-8 col-lg-8'></div>
         <div className='col-xs-2 col-sm-2 col-md-2 col-lg-2'></div>
       </div>
@@ -25,5 +33,6 @@ export default class Chat extends Component{
 }
 
 Chat.propTypes = {
-  users: PropTypes.array.isRequired
+  users: PropTypes.array.isRequired,
+  messagesObj: PropTypes.object.isRequired
 }

@@ -7,8 +7,9 @@ import App from '../imports/ui/App.jsx';
 import RegionSelector from '../imports/ui/regionSelector.jsx';
 import RegionElement from '../imports/ui/RegionElement.jsx';
 
-Meteor.startup(() => {
+Meteor.startup( () => {
   Meteor.subscribe('onlineUsers');
   Meteor.subscribe('regions');
-  render (<App />, document.getElementById('container'));
+  Meteor.subscribe('messages');
+  render ( <App />, document.getElementById('container') );
 });

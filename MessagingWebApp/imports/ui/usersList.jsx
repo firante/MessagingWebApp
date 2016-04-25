@@ -6,7 +6,6 @@ export default class UsersList extends Component {
 	// }
 
 	render() {
-		console.log(this.props.user);
 		return (
 			<li className='list-group-item'> {this.props.user} </li>
 		);
