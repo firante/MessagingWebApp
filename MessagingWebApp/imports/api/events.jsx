@@ -19,6 +19,7 @@ export function addOnlineUser(user) {
 export function removeOnlineUser() {
   onlineUsers.remove({'_id': Session.get('userId')});
   delete Session.keys.userId;
+  delete Session.keys.regionName;
 }
 
 export function getUsersByRegion(region) {

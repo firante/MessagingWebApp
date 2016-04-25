@@ -4,23 +4,20 @@ import {createContainer} from 'meteor/react-meteor-data';
 
 
 import { getRegions, addOnlineUser, removeOnlineUser, openRegion,
-  getUsersByRegion, getMessagesByRegion } from '../api/events.jsx';
+  getUsersByRegion, getMessagesByRegion, getCurrentUserRegion } from '../api/events.jsx';
 import RegionSelector from './regionSelector.jsx';
 import Chat from './chat.jsx';
 
 class App extends Component {
 
   renderChat() {
-    if(this.props.users && this.props.messages) {
-      return <Chat users={this.props.users} messagesObj={this.props.messages} />;
-    } else {
-        return null;
-    }
+    return (this.props.users.length && Session.get('regionName') && this.props.user) ?
+      <Chat users={this.props.users} messagesObj={this.props.messages} /> : null;
   }
 
 	render() {
+      // --- gподумати на рахунок позбавлення привязки до сесії
 		let regionSelector;
-		          // --- gподумати на рахунок позбавлення привязки до сесії
 		if(this.props.user) {
 			regionSelector = <RegionSelector regions={this.props.regions} onClick={openRegion}/>;
 			setTimeout(()=>{
@@ -53,10 +50,11 @@ class App extends Component {
 }
 
 export default createContainer ( () => {
+  console.log(Session.get('regionName'));
 	return {
 		regions: getRegions(),
 		user: Meteor.user(),
 		users: getUsersByRegion(Session.get('regionName')),
-    messages: getMessagesByRegion(Session.get('regionName'))
+    messages: getMessagesByRegion(Session.get('regionName')),
 	};
 }, App);

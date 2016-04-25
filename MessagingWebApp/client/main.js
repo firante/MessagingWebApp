@@ -8,6 +8,7 @@ import RegionSelector from '../imports/ui/regionSelector.jsx';
 import RegionElement from '../imports/ui/RegionElement.jsx';
 
 Meteor.startup( () => {
+  
   Meteor.subscribe('onlineUsers');
   Meteor.subscribe('regions');
   Meteor.subscribe('messages');

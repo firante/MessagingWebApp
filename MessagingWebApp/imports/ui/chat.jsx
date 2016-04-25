@@ -2,15 +2,11 @@ import React, {Component, PropTypes} from 'react';
 
 import UsersList from './usersList.jsx';
 import Messages from './Messages.jsx';
+import SendMessage from './SendMessage.jsx';
 
 export default class Chat extends Component{
   renderUsers() {
     return this.props.users.map( value => <UsersList key={value._id} user={value.username} /> );
-  }
-
-  renderMessages() {
-    console.log(this.props.messagesObj);
-    return <Messages messagesInReg={this.props.messagesObj} />
   }
 
   render() {
@@ -23,10 +19,11 @@ export default class Chat extends Component{
           </ul>
         </div>
         <div className='col-xs-7 col-sm-7 col-md-7 col-lg-7'>
-          {this.renderMessages()}
+          <Messages messagesInReg={this.props.messagesObj} />
         </div>
-        <div className='col-xs-8 col-sm-8 col-md-8 col-lg-8'></div>
-        <div className='col-xs-2 col-sm-2 col-md-2 col-lg-2'></div>
+        <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+          <SendMessage />
+        </div>
       </div>
     );
   }
