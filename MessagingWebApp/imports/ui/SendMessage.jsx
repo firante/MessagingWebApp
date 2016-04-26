@@ -5,14 +5,12 @@ export default class SendMessage extends Component {
   onClick() {
       this.props.onClick(this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
       this.refs.textarea.value = '';
-      updateScroll();
   }
 
   onPress(e) {
     if(e.key === 'Enter') {
       this.props.onClick(this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
       this.refs.textarea.value = '';
-      updateScroll();
     }
   }
 

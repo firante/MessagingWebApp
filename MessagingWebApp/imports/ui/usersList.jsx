@@ -10,11 +10,10 @@ export default class UsersList extends Component {
 	}
 
 	render() {
-		let username = this.props.user.substring(0, this.props.user.indexOf('@'));
 		return (
 			<li
 				className='list-group-item btn'
-				onDoubleClick={this.onDoubleClick.bind(this)} > {username} </li>
+				onDoubleClick={this.onDoubleClick.bind(this)} > {this.props.user} </li>
 		);
 	}
 }

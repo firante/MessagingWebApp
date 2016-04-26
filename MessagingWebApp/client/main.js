@@ -7,6 +7,8 @@ import RegionSelector from '../imports/ui/regionSelector.jsx';
 import RegionElement from '../imports/ui/RegionElement.jsx';
 import { confirmOnline } from '../imports/api/events.jsx';
 
+import '../imports/startup/account-config.js';
+
 Meteor.startup( () => {
 
   Session.set('user2', null);

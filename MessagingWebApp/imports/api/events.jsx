@@ -1,3 +1,4 @@
+import {getFormetedDate} from './support.jsx'
 export function openRegion(regionId, regionName) {
   onlineUsers.update({'_id': Meteor.user()._id}, {$set: {'regions':regionName}});
 
@@ -36,7 +37,7 @@ export function getMessagesByRegion(region) {
   return messages.findOne({'regionName': region});
 }
  export function sendMessage (regionId, message, username) {
-   messages.update({_id: regionId}, {$push: {'messages': {'user':username, 'date': new Date(), 'message':message}}});
+   messages.update({_id: regionId}, {$push: {'messages': {'user':username, 'date': getFormetedDate(), 'message':message}}});
  }
 
 export function getAllOnlineUsers() {
@@ -56,5 +57,5 @@ export function getPrivateMessage(user1, user2) {
 export function sendPrivateMessage(privateId, message, username) {
   PrivateMessage.update(
     {_id: privateId},
-    {$push: {'messages': {'user': username, 'date': new Date(), 'message': message}}});
+    {$push: {'messages': {'user': username, 'date': getFormetedDate(), 'message': message}}});
 }

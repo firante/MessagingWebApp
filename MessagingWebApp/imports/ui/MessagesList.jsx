@@ -6,9 +6,9 @@ export default class MessagesList extends Component {
     let align = this.props.message.user === Meteor.user().username ? 'bg-success text-right' : 'bg-info text-left';
     return (
       <div className={align}>
-        <p className='small'>{this.props.message.user}</p>
-        <p className='small'>{this.props.message.date.toString()}</p>
-        <p> {this.props.message.message} </p>
+        <h6 className='small'>{this.props.message.user}	&nbsp;	&nbsp; {this.props.message.date.toString()}</h6>
+        
+        <h5> {this.props.message.message} </h5>
       </div>
     );
   }
