@@ -6,23 +6,39 @@ import SendMessage from './SendMessage.jsx';
 
 export default class Chat extends Component{
   renderUsers() {
-    return this.props.users.map( value => <UsersList key={value._id} user={value.username} /> );
+    return this.props.users.map( (value) => {
+      if(value.username !== Meteor.user().username) {
+        if(this.props.onDoubleClick) {
+          return <UsersList key={value._id} user={value.username} onDoubleClick={this.props.onDoubleClick} update={this.props.update}/>
+        } else {
+          return <UsersList key={value._id} user={value.username} />
+        }
+    }
+    } );
+  }
+
+  renderMessage() {
+    return this.props.messagesObj ? <Messages messagesInReg={this.props.messagesObj} /> : null;
+  }
+
+  renderSendMessage() {
+    return this.props.messagesObj && this.props.onClick ?
+      <SendMessage filterCriteria={this.props.messagesObj._id} onClick={this.props.onClick}/> : null;
   }
 
   render() {
     return (
-      <div className='col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1
-        col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1'>
+      <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
           <ul className='list-group'>
             {this.renderUsers()}
           </ul>
         </div>
-        <div className='col-xs-7 col-sm-7 col-md-7 col-lg-7'>
-          <Messages messagesInReg={this.props.messagesObj} />
+        <div className='col-xs-9 col-sm-9 col-md-9 col-lg-9'>
+          {this.renderMessage()}
         </div>
         <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-          <SendMessage />
+          {this.renderSendMessage()}
         </div>
       </div>
     );
@@ -31,5 +47,6 @@ export default class Chat extends Component{
 
 Chat.propTypes = {
   users: PropTypes.array.isRequired,
-  messagesObj: PropTypes.object.isRequired
+  messagesObj: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired
 }

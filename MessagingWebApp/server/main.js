@@ -15,7 +15,19 @@ Meteor.startup(() => {
 		return messages.find();
 	});
 
+  Meteor.publish('PrivateMessage', () => {
+		return PrivateMessage.find();
+	});
 
 	new Support().pullRegions();
   // code to run on server at startup
+
+  Meteor.setInterval(function(){
+     onlineUsers.find().forEach((value) => {
+       if(parseInt(value.verifyOnline)+5000 < new Date().getTime()) {
+         onlineUsers.remove({_id: value._id});
+       }
+     });
+  }, 121000);
+
 });

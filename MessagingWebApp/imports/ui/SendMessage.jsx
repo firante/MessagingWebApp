@@ -3,7 +3,17 @@ import React, {Component, PropTypes} from 'react';
 export default class SendMessage extends Component {
 
   onClick() {
-    console.log(this.refs.textarea.value);
+      this.props.onClick(this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
+      this.refs.textarea.value = '';
+      updateScroll();
+  }
+
+  onPress(e) {
+    if(e.key === 'Enter') {
+      this.props.onClick(this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
+      this.refs.textarea.value = '';
+      updateScroll();
+    }
   }
 
   render () {
@@ -13,7 +23,8 @@ export default class SendMessage extends Component {
         <textarea
           className='form-control'
           rows="5"
-          ref='textarea'>
+          ref='textarea'
+          onKeyPress={this.onPress.bind(this)}>
         </textarea>
 
         <button
@@ -23,4 +34,9 @@ export default class SendMessage extends Component {
       </div>
     );
   }
+}
+
+SendMessage.propTypes = {
+  filterCriteria : PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 }

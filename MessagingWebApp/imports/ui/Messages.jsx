@@ -1,8 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 
 import MessagesList from './MessagesList.jsx';
+import {updateScroll} from '../api/support.jsx';
 
 export default class Messages extends Component {
+  
+  componentDidUpdate() {
+     updateScroll();
+  }
 
   // List of messages in selected region
   renderMessagesList() {
@@ -17,7 +22,7 @@ export default class Messages extends Component {
 
   render() {
     return (
-      <div className='well'>
+      <div className='pre-scrollable' id='div_mes'>
         {this.renderMessagesList()}
       </div>
     );

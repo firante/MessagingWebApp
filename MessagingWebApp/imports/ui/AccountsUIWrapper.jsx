@@ -14,7 +14,7 @@ export default class AccountUIWrapper extends Component {
 
 	render() {
 		return (
-			<div className='text-right'>
+			<div>
 				<span ref='container' />
 			</div>
 		)
