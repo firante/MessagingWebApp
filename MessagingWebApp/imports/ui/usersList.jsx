@@ -2,14 +2,15 @@ import React, {Component, PropTypes} from 'react';
 
 export default class UsersList extends Component {
 	onDoubleClick() {
-		if(this.props.onDoubleClick) {
-			this.props.onDoubleClick(Meteor.user().username, this.props.user);
+    if(this.props.checkPrivate) {
+			Meteor.call('openPrivateChat',Meteor.user().username, this.props.user);
 			Session.set('user2', this.props.user);
 			Session.set('user1', Meteor.user().username);
-		}
+    }
 	}
 
 	render() {
+
 		return (
 			<li
 				className='list-group-item btn'
@@ -19,5 +20,6 @@ export default class UsersList extends Component {
 }
 
 UsersList.propTypes = {
-	user: PropTypes.string.isRequired
+	user: PropTypes.string.isRequired,
+  checkPrivate: PropTypes.bool.isRequired
 };

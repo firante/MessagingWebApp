@@ -1,11 +1,4 @@
 import {getFormetedDate} from './support.jsx'
-export function openRegion(regionId, regionName) {
-  onlineUsers.update({'_id': Meteor.user()._id}, {$set: {'regions':regionName}});
-
-  if(messages.find({_id: regionId}).count() === 0) {
-    messages.insert({_id: regionId, 'regionName': regionName, 'messages': []});
-  }
-}
 
 export function getRegions() {
   return regions.find().fetch();
@@ -44,18 +37,6 @@ export function getAllOnlineUsers() {
   return onlineUsers.find().fetch();
 }
 
-export function createPrivateChat(user1, user2) {
-  if(PrivateMessage.find({'userPair': {$all: [user1, user2]}}).count() === 0) {
-    PrivateMessage.insert({'userPair': [user1, user2], 'messages': []});
-  }
-}
-
 export function getPrivateMessage(user1, user2) {
   return PrivateMessage.findOne({'userPair': {$all: [user1, user2]}});
-}
-
-export function sendPrivateMessage(privateId, message, username) {
-  PrivateMessage.update(
-    {_id: privateId},
-    {$push: {'messages': {'user': username, 'date': getFormetedDate(), 'message': message}}});
 }

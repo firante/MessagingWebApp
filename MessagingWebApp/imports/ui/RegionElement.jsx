@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 export default class RegionElement extends Component {
 	onClick() {
 		// region button clicked event
-		this.props.onClick(this.props.regions._id, this.props.regions.regionName);
+		Meteor.call('openRegion', Meteor.userId(), this.props.regions._id, this.props.regions.regionName);
 		// render chat body component
 		Session.set('regionName', this.props.regions.regionName);
 	}
@@ -24,6 +24,5 @@ export default class RegionElement extends Component {
 
 
 RegionElement.propTypes = {
-	regions: PropTypes.object.isRequired,
-	onClick: PropTypes.func.isRequired
+	regions: PropTypes.object.isRequired
 };

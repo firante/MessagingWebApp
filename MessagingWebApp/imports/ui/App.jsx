@@ -3,40 +3,41 @@ import AccountUIWrapper from './AccountsUIWrapper.jsx';
 import {createContainer} from 'meteor/react-meteor-data';
 
 
-import { getRegions, addOnlineUser, removeOnlineUser, openRegion,
-  getUsersByRegion, getMessagesByRegion, getCurrentUserRegion, sendMessage,
-  getAllOnlineUsers, createPrivateChat, getPrivateMessage, sendPrivateMessage } from '../api/events.jsx';
+import { getRegions, addOnlineUser, removeOnlineUser,
+  getUsersByRegion, getMessagesByRegion, getCurrentUserRegion,
+  getAllOnlineUsers, getPrivateMessage } from '../api/events.jsx';
 import RegionSelector from './regionSelector.jsx';
 import Chat from './chat.jsx';
 
 
 class App extends Component {
 
+  componentDidUpdate() {
+     if(this.props.user) {
+       addOnlineUser(this.props.user);
+       Session.set('userId', Meteor.userId())
+     } else {
+       removeOnlineUser();
+     }
+  }
+
+
   renderChat() {
     return (this.props.users.length && Session.get('regionName') && this.props.user) ?
-      <Chat users={this.props.users} messagesObj={this.props.messages} onClick={sendMessage}/> : null;
+      <Chat users={this.props.users} checkPrivate={false} messagesObj={this.props.messages}/> : null;
   }
 
   renderPrivateChat() {
     return (this.props.allOnlineUsers.length && this.props.user) ?
-      <Chat users={this.props.allOnlineUsers} onDoubleClick={createPrivateChat}
-        update={this.updatePrivateMessObj} messagesObj={this.props.privateMessObject} onClick={sendPrivateMessage}/> : null;
+      <Chat users={this.props.allOnlineUsers} checkPrivate={true}
+        update={this.updatePrivateMessObj} messagesObj={this.props.privateMessObject}/> : null;
   }
 
 	render() {
       // --- gподумати на рахунок позбавлення привязки до сесії
 		let regionSelector;
 		if(this.props.user) {
-			regionSelector = <RegionSelector regions={this.props.regions} onClick={openRegion}/>;
-			setTimeout(()=>{
-				if(onlineUsers.find({_id: this.props.user._id}).count() < 1) {
-					this.activeUser = this.props.user._id;
-					addOnlineUser(this.props.user);
-				}
-        Session.set('userId', this.props.user._id);
-			}, 500);
-		} else {
-		  removeOnlineUser();
+			regionSelector = <RegionSelector regions={this.props.regions} />;
 		}
 
 		return(

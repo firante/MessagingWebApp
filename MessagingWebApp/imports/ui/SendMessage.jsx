@@ -3,13 +3,22 @@ import React, {Component, PropTypes} from 'react';
 export default class SendMessage extends Component {
 
   onClick() {
-      this.props.onClick(this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
+    if(this.props.checkPrivate) {
+      Meteor.call('sendPrivateMessage', this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
+    } else {
+      Meteor.call('sendMessage', this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
+    }
+
       this.refs.textarea.value = '';
   }
 
   onPress(e) {
     if(e.key === 'Enter') {
-      this.props.onClick(this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
+      if(this.props.checkPrivate) {
+        Meteor.call('sendPrivateMessage', this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
+      } else {
+        Meteor.call('sendMessage', this.props.filterCriteria, this.refs.textarea.value, Meteor.user().username);
+      }
       this.refs.textarea.value = '';
     }
   }
@@ -36,5 +45,5 @@ export default class SendMessage extends Component {
 
 SendMessage.propTypes = {
   filterCriteria : PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  checkPrivate: PropTypes.bool.isRequired
 }

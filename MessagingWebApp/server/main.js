@@ -1,8 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 
-import Support from './pull/pullRegions.js'
+import Support from './pull/pullRegions.js';
+import './meteorMethods/methods.js';
 
 Meteor.startup(() => {
+
+	Meteor.call('openPrivateChat','us1',"22");
 	Meteor.publish('onlineUsers', () => {
 		return onlineUsers.find();
 	});

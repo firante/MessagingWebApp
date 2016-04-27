@@ -9,7 +9,7 @@ export default class Chat extends Component{
     return this.props.users.map( (value) => {
       if(value.username !== Meteor.user().username) {
         if(this.props.onDoubleClick) {
-          return <UsersList key={value._id} user={value.username} onDoubleClick={this.props.onDoubleClick} update={this.props.update}/>
+          return <UsersList key={value._id} user={value.username} checkPrivate={this.props.checkPrivate} update={this.props.update}/>
         } else {
           return <UsersList key={value._id} user={value.username} />
         }
@@ -23,7 +23,7 @@ export default class Chat extends Component{
 
   renderSendMessage() {
     return this.props.messagesObj && this.props.onClick ?
-      <SendMessage filterCriteria={this.props.messagesObj._id} onClick={this.props.onClick}/> : null;
+      <SendMessage filterCriteria={this.props.messagesObj._id} checkPrivate={this.props.checkPrivate}/> : null;
   }
 
   render() {
@@ -48,5 +48,5 @@ export default class Chat extends Component{
 Chat.propTypes = {
   users: PropTypes.array.isRequired,
   messagesObj: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired
+  checkPrivate: PropTypes.bool.isRequired
 }
