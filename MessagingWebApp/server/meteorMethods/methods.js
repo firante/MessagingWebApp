@@ -1,7 +1,3 @@
-import {onlineUsers} from '../collections/collections.js';
-import {PrivateMessage} from '../collections/collections.js';
-import {messages} from '../collections/collections.js';
-
 import {getFormetedDate} from '../support/support.js'
 
 Meteor.methods({
@@ -23,7 +19,7 @@ Meteor.methods({
     messages.update(regionId, {$push: {'messages': {'user':username, 'date': getFormetedDate(), 'message':message}}});
   },
 
-  sendPrivateMessage: function () {
+  sendPrivateMessage: function (privateId, message, username) {
     PrivateMessage.update(privateId, {$push: {'messages': {'user': username, 'date': getFormetedDate(), 'message': message}}});
   },
 
@@ -32,6 +28,21 @@ Meteor.methods({
 
     if(messages.find({_id: regionId}).count() === 0) {
       messages.insert({_id: regionId, 'regionName': regionName, 'messages': []});
+    }
+  },
+  addOnlineUser: function(user) {
+    if(onlineUsers.find({_id: user._id}).count() === 0) {
+      onlineUsers.insert({_id: user._id, 'username': user.username, 'regions':'', 'verifyOnline': new Date().getTime()});
+    }
+  },
+
+  removeOnlineUser: function(userId) {
+    onlineUsers.remove({'_id': userId});
+  },
+
+  confirmOnline: function(user) {
+    if(onlineUsers.find({_id: user._id}).count() !== 0) {
+      onlineUsers.update({_id:user._id}, {$set: {'verifyOnline' : new Date().getTime()}})
     }
   }
 });

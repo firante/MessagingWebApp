@@ -90,7 +90,3 @@ export default class RegionSelector extends Component {
 		);
 	}
 }
-
-RegionElement.propTypes = {
-	onClick: PropTypes.func.isRequired
-};

@@ -8,10 +8,10 @@ export default class Chat extends Component{
   renderUsers() {
     return this.props.users.map( (value) => {
       if(value.username !== Meteor.user().username) {
-        if(this.props.onDoubleClick) {
+        if(this.props.checkPrivate) {
           return <UsersList key={value._id} user={value.username} checkPrivate={this.props.checkPrivate} update={this.props.update}/>
         } else {
-          return <UsersList key={value._id} user={value.username} />
+          return <UsersList key={value._id} user={value.username} checkPrivate={this.props.checkPrivate}/>
         }
     }
     } );
@@ -22,7 +22,7 @@ export default class Chat extends Component{
   }
 
   renderSendMessage() {
-    return this.props.messagesObj && this.props.onClick ?
+    return this.props.messagesObj ?
       <SendMessage filterCriteria={this.props.messagesObj._id} checkPrivate={this.props.checkPrivate}/> : null;
   }
 

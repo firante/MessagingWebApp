@@ -3,9 +3,9 @@ import React, {Component, PropTypes} from 'react';
 export default class UsersList extends Component {
 	onDoubleClick() {
     if(this.props.checkPrivate) {
-			Meteor.call('openPrivateChat',Meteor.user().username, this.props.user);
 			Session.set('user2', this.props.user);
 			Session.set('user1', Meteor.user().username);
+			Meteor.call('openPrivateChat',Meteor.user().username, this.props.user);
     }
 	}
 

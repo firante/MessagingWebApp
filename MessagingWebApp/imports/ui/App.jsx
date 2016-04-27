@@ -3,8 +3,7 @@ import AccountUIWrapper from './AccountsUIWrapper.jsx';
 import {createContainer} from 'meteor/react-meteor-data';
 
 
-import { getRegions, addOnlineUser, removeOnlineUser,
-  getUsersByRegion, getMessagesByRegion, getCurrentUserRegion,
+import { getRegions, getUsersByRegion, getMessagesByRegion, getCurrentUserRegion,
   getAllOnlineUsers, getPrivateMessage } from '../api/events.jsx';
 import RegionSelector from './regionSelector.jsx';
 import Chat from './chat.jsx';
@@ -14,10 +13,12 @@ class App extends Component {
 
   componentDidUpdate() {
      if(this.props.user) {
-       addOnlineUser(this.props.user);
+       Meteor.call('addOnlineUser', this.props.user);
        Session.set('userId', Meteor.userId())
      } else {
-       removeOnlineUser();
+       Meteor.call('removeOnlineUser',Session.get('userId'));
+       delete Session.keys.userId;
+       delete Session.keys.regionName;
      }
   }
 
@@ -29,8 +30,7 @@ class App extends Component {
 
   renderPrivateChat() {
     return (this.props.allOnlineUsers.length && this.props.user) ?
-      <Chat users={this.props.allOnlineUsers} checkPrivate={true}
-        update={this.updatePrivateMessObj} messagesObj={this.props.privateMessObject}/> : null;
+      <Chat users={this.props.allOnlineUsers} checkPrivate={true} messagesObj={this.props.privateMessObject}/> : null;
   }
 
 	render() {
@@ -81,6 +81,6 @@ export default createContainer ( () => {
 		users: getUsersByRegion(Session.get('regionName')),
     messages: getMessagesByRegion(Session.get('regionName')),
     allOnlineUsers: getAllOnlineUsers(),
-    privateMessObject: getPrivateMessage(Session.get('user1'), Session.get('user2')),
+    privateMessObject: getPrivateMessage(Session.get('user1'), Session.get('user2'))
 	};
 }, App);

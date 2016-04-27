@@ -5,21 +5,18 @@ import './meteorMethods/methods.js';
 
 Meteor.startup(() => {
 
-	Meteor.call('openPrivateChat','us1',"22");
 	Meteor.publish('onlineUsers', () => {
 		return onlineUsers.find();
+	});
+	Meteor.publish('messages', () => {
+		return messages.find();
+	});
+	Meteor.publish('PrivateMessage', (user1, user2) => {
+		return PrivateMessage.find({'userPair': {$all: [user1, user2]}});
 	});
 
 	Meteor.publish('regions', () => {
 		return regions.find();
-	});
-
-	Meteor.publish('messages', () => {
-		return messages.find();
-	});
-
-  Meteor.publish('PrivateMessage', () => {
-		return PrivateMessage.find();
 	});
 
 	new Support().pullRegions();
