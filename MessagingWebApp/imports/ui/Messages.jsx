@@ -4,7 +4,11 @@ import MessagesList from './MessagesList.jsx';
 import {updateScroll} from '../api/support.jsx';
 
 export default class Messages extends Component {
-  
+
+  componentDidMount() {
+    updateScroll();
+  }
+
   componentDidUpdate() {
      updateScroll();
   }

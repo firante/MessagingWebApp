@@ -19,6 +19,9 @@ class App extends Component {
        Meteor.call('removeOnlineUser',Session.get('userId'));
        delete Session.keys.userId;
        delete Session.keys.regionName;
+       Meteor.subscribe('messages').stop();
+       Meteor.subscribe('onlineUsers').stop();
+       Meteor.subscribe('regions').stop();
      }
   }
 

@@ -11,11 +11,6 @@ Meteor.startup( () => {
   Session.set('user2', null);
   Session.set('user1', null);
 
-
-  Meteor.subscribe('onlineUsers');
-  Meteor.subscribe('regions');
-  Meteor.subscribe('messages');
-
   render ( <App />, document.getElementById('container') );
 
 

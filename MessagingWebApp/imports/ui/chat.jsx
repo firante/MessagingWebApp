@@ -47,6 +47,5 @@ export default class Chat extends Component{
 
 Chat.propTypes = {
   users: PropTypes.array.isRequired,
-  messagesObj: PropTypes.object.isRequired,
   checkPrivate: PropTypes.bool.isRequired
 }
