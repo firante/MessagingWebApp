@@ -72,6 +72,9 @@ class App extends Component {
           </ul>
           <div className='tab-content'>
             <div role='tabpanel' className='tab-pane active' id='chat'>
+              <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center'>
+                <span className='lead'>{Session.get('regionName')}</span>
+              </div>
               {this.renderChat()}
             </div>
             <div role='tabpanel' className='tab-pane' id='private'>
