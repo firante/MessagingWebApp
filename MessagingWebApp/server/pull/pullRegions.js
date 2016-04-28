@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 
-export default class Support {
+import {regionsCount} from '../../imports/api/collections.jsx';
 
+export default class Support {
+// pull regions if it not exixst
 	pullRegions() {
 		if(regionsCount.thisCounter === 0) {
 			regions.insert({_id:regionsCount.next.toString(), 'regionName': 'Lviv'});
@@ -11,4 +13,4 @@ export default class Support {
 			regions.insert({_id:regionsCount.next.toString(), 'regionName': 'Poltava'});
 		}
 	}
-} 
+}

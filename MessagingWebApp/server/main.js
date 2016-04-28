@@ -1,7 +1,10 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
 import Support from './pull/pullRegions.js';
 import './meteorMethods/methods.js';
+
+import {regions, onlineUsers, PrivateMessage, messages} from '../imports/api/collections.jsx'; // import collections
 
 Meteor.startup(() => {
 
@@ -16,7 +19,7 @@ Meteor.startup(() => {
 	Meteor.publish('regions', () => {
 		return regions.find();
 	});
-	
+
 	Meteor.publish('PrivateMessage', (user1, user2) => {
 		return PrivateMessage.find({'userPair': {$all: [user1, user2]}});
 	});

@@ -1,3 +1,4 @@
+// function for get formated date
 export function getFormetedDate() {
   let date = new Date();
   let month = parseInt(date.getMonth(),10);

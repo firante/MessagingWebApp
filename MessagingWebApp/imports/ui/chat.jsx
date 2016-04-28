@@ -1,3 +1,7 @@
+/*
+* class for render chat component
+*/
+
 import React, {Component, PropTypes} from 'react';
 
 import UsersList from './usersList.jsx';
@@ -5,6 +9,8 @@ import Messages from './Messages.jsx';
 import SendMessage from './SendMessage.jsx';
 
 export default class Chat extends Component{
+
+  //method for render users list to chat component
   renderUsers() {
     return this.props.users.map( (value) => {
       if(value.username !== Meteor.user().username) {
@@ -17,10 +23,12 @@ export default class Chat extends Component{
     } );
   }
 
+  //method for render message list to chat component
   renderMessage() {
     return this.props.messagesObj ? <Messages messagesInReg={this.props.messagesObj} /> : null;
   }
 
+  //method for render send message component
   renderSendMessage() {
     return this.props.messagesObj ?
       <SendMessage filterCriteria={this.props.messagesObj._id} checkPrivate={this.props.checkPrivate}/> : null;

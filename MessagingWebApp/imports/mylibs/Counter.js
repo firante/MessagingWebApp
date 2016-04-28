@@ -1,3 +1,7 @@
+/*
+* class counter for create counters for generate ID
+*/
+
 export default class Counter {
 	constructor (count) {
 		if (typeof count === 'undefined') {

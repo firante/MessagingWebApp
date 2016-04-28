@@ -1,3 +1,7 @@
+/*
+* class for render message list
+*/
+
 import React, {Component, PropTypes} from 'react';
 
 import MessagesList from './MessagesList.jsx';
@@ -6,7 +10,7 @@ import {updateScroll} from '../api/support.jsx';
 export default class Messages extends Component {
 
   componentDidMount() {
-    updateScroll();
+    updateScroll(); // update scroll in message list component to bottom
   }
 
   componentDidUpdate() {

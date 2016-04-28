@@ -1,14 +1,19 @@
+/*
+* class for render region list
+*/
 import React, {Component, PropTypes} from 'react';
 
 import RegionElement from './RegionElement.jsx';
 
 export default class RegionSelector extends Component {
 
+	// handler for change loged user name
 	clickChUserName() {
 		Meteor.call('changeUserName', Meteor.userId(), this.refs.username.value);
 		this.refs.username.value = '';
 	}
 
+	// handler for change loged user email
 	clickChEmail() {
 		let newEmail = this.refs.email.value;
 
@@ -20,6 +25,7 @@ export default class RegionSelector extends Component {
 		this.refs.email.value = '';
 	}
 
+	// handler for generate region list that will be rendered
 	renderRegions() {
 		return this.props.regions.map(value =>
 			<RegionElement key={value._id} regions={value} onClick={this.props.onClick}/>
